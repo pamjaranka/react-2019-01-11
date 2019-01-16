@@ -12,7 +12,7 @@ class ArticleList extends Component{
             openItemId,
             toggleOpenArticle,
             articles
-        } = this.props
+        } = this.props;
 
         return articles.map(article => (
             <li key={article.id}>
@@ -26,4 +26,4 @@ class ArticleList extends Component{
     }
 }
 
-export default accordion(ArticleList)
+export default accordion(ArticleList);
