@@ -5,8 +5,9 @@ export default (OriginalComponent) =>
     class DecoratedComponent extends Component {
         state = {
             openItemId: null
-        }
-        toggleOpenArticle = (id) => this.setState({openItemId: id})
+        };
+
+        toggleOpenArticle = (id) => this.setState({openItemId: id});
 
         render() {
             return <OriginalComponent
@@ -15,5 +16,4 @@ export default (OriginalComponent) =>
                 toggleOpenArticle={this.toggleOpenArticle}
             />;
         }
-
     }
