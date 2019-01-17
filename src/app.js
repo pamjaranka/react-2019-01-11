@@ -18,6 +18,7 @@ class App extends Component {
           options={this.options}
           value={this.state.selected}
           onChange={this.handleSelectChange}
+          isMulti={true}
         />
         <ArticleList
           articles={this.props.articles}
