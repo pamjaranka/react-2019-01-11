@@ -7,14 +7,6 @@ import CSSTransition from 'react-addons-css-transition-group';
 import './comment-list.css';
 
 class CommentList extends Component {
-    static propTypes = {
-        comments: PropTypes.array.isRequired,
-
-        // from decorator
-        isOpen: PropTypes.bool,
-        toggleOpenItem: PropTypes.func.isRequired
-    };
-
     render() {
         const {isOpen, toggleOpenItem} = this.props;
 
@@ -51,6 +43,12 @@ class CommentList extends Component {
             <div>{body}</div>
         ) : null
     }
+}
+
+CommentList.propTypes = {
+    isOpen: PropTypes.bool,
+    toggleOpenItem: PropTypes.func.isRequired,
+    comments: PropTypes.array.isRequired
 }
 
 export default toggleOpen(CommentList)

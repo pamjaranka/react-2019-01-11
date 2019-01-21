@@ -59,7 +59,7 @@ class Article extends PureComponent {
 
 Article.propTypes = {
     isOpen: PropTypes.bool,
-    toggleArticle: PropTypes.func,
+    toggleArticle: PropTypes.func.isRequired,
     article: PropTypes.shape({
         id: PropTypes.string,
         title: PropTypes.string,

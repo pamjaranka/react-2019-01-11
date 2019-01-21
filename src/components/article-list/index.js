@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Article from '../article';
 import accordion from '../../decorators/accordion';
+import PropTypes from "prop-types";
 
 class ArticleList extends Component{
     render() {
@@ -16,7 +17,7 @@ class ArticleList extends Component{
             openItemId,
             toggleOpenArticle,
             articles
-        } = this.props
+        } = this.props;
 
         return articles.map(article => (
             <li key={article.id} className="test--art__container">
@@ -29,5 +30,12 @@ class ArticleList extends Component{
         ))
     }
 }
+
+ArticleList.propTypes = {
+    openItemId: PropTypes.string,
+    toggleOpenArticle: PropTypes.func.isRequired,
+    fetchData: PropTypes.func,
+    articles: PropTypes.array
+};
 
 export default accordion(ArticleList)
