@@ -9,7 +9,7 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('Comment List', function () {
     it('should render only button and no comments by default', () => {
         const wrapper = mount(
-            <CommentList comments={mockedComments[0].comments} isOpen />
+            <CommentList comments={mockedComments[0].comments} />
         );
 
         expect(wrapper.find('.test--comment__btn').length)
