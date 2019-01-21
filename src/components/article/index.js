@@ -39,7 +39,7 @@ class Article extends PureComponent {
     };
 
     get body() {
-        const {article, isOpen, transitionEnter, transitionLeave} = this.props;
+        const {article, isOpen} = this.props;
 
         if (!isOpen) return null;
         return (
@@ -50,9 +50,6 @@ class Article extends PureComponent {
                         null :
                         <CommentList
                             comments={article.comments}
-                            transitionEnter={transitionEnter}
-                            transitionLeave={transitionLeave}
-
                         />
                 }
             </section>
