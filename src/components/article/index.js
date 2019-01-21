@@ -1,4 +1,5 @@
-import React, {PureComponent} from 'react'
+import React, {PureComponent} from 'react';
+import config from '../../config';
 import CommentList from '../comment-list';
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
@@ -12,7 +13,8 @@ class Article extends PureComponent {
         this.setState({error})
     }
     render() {
-        const {article: {title}, isOpen} = this.props
+        const {article: {title}, isOpen} = this.props;
+
         return (
             <div>
                 <h3>
@@ -23,8 +25,8 @@ class Article extends PureComponent {
                 </h3>
                 <CSSTransition
                     transitionName="article"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={3000}
+                    transitionEnterTimeout={config.TRANSITION_ENTER}
+                    transitionLeaveTimeout={config.TRANSITION_LEAVE}
                 >
                     {this.body}
                 </CSSTransition>
@@ -34,18 +36,24 @@ class Article extends PureComponent {
 
     toggleOpen = () => {
         this.props.toggleArticle(this.props.article.id)
-    }
+    };
 
     get body() {
-        const {article, isOpen} = this.props
-        if (!isOpen) return null
+        const {article, isOpen, transitionEnter, transitionLeave} = this.props;
+
+        if (!isOpen) return null;
         return (
             <section className="test--article_body">
                 <p>{article.text}</p>
                 {
                     this.state.error ?
                         null :
-                        <CommentList comments={article.comments} />
+                        <CommentList
+                            comments={article.comments}
+                            transitionEnter={transitionEnter}
+                            transitionLeave={transitionLeave}
+
+                        />
                 }
             </section>
         )
