@@ -3,6 +3,8 @@ import CommentList, {TypeComments} from '../comment-list/comment-list';
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
+import {connect} from 'react-redux';
+import {deleteArticle} from '../../ac';
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -27,6 +29,7 @@ class Article extends PureComponent {
                     <button className="test--article__btn" onClick={this.toggleOpen}>
                         {isOpen ? 'close' : 'open'}
                     </button>
+                    <button onClick={this.handleDelete}>Delete</button>
                 </h3>
                 <CSSTransition
                     transitionName="article"
@@ -37,6 +40,10 @@ class Article extends PureComponent {
                 </CSSTransition>
             </div>
         )
+    }
+
+    handleDelete = () => {
+        this.props.dispatchDeleteArticle(this.props.article.id)
     }
 
     toggleOpen = () => {
@@ -65,4 +72,9 @@ Article.propTypes = {
     article: TypeArticle
 }
 
-export default Article
+export default connect(
+    null,
+    (dispatch) => ({
+        dispatchDeleteArticle: (id) => dispatch(deleteArticle(id))
+    })
+)(Article)
