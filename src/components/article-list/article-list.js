@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
-import Article from './article';
-import accordion from '../decorators/accordion';
+import Article, {TypeArticle} from '../article';
+import accordion from '../../decorators/accordion';
+import PropTypes from 'prop-types';
+
+export const TypeArticles = PropTypes.arrayOf(TypeArticle)
 
 class ArticleList extends Component{
+    static propTypes = {
+        articles: TypeArticles
+    }
     render() {
         return <ul>{this.articles}</ul>;
     }

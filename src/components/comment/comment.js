@@ -1,4 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types';
+
+export const TypeComment = PropTypes.shape({
+    user: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
+})
 
 function Comment(props) {
     const { user, text } = props.comment
@@ -8,6 +14,10 @@ function Comment(props) {
             <p>{text}</p>
         </div>
     )
+}
+
+Comment.propTypes = {
+    comment: TypeComment
 }
 
 export default Comment
