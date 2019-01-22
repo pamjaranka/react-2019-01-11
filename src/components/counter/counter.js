@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
+import {increment} from '../../ac';
 
 class Counter extends Component {
     render() {
@@ -12,7 +13,7 @@ class Counter extends Component {
     }
 
     handleIncrement = () => {
-        this.props.dispatch({type: 'INCREMENT'})
+        this.props.dispatchIncrement()
     }
 }
 
@@ -20,6 +21,14 @@ const mapStateToProps = (store) => ({
     countProp: store.count
 })
 
+const mapDispatchToProps = {
+    dispatchIncrement: increment
+}
+// const mapDispatchToProps = (dispatch) => ({
+//     dispatchIncrement: () => dispatch(increment())
+// })
+
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Counter)
