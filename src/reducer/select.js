@@ -1,5 +1,4 @@
-import {CHANGE_SELECT, DELETE_ARTICLE} from '../constants';
-import articlesMock from "../fixtures";
+import {CHANGE_SELECT} from '../constants';
 
 export default (select_value = null, action) => {
   const {type, payload} = action;

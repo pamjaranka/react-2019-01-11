@@ -1,8 +1,10 @@
 import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import {changeDatePicker} from "../../ac";
+import connect from "react-redux/es/connect/connect";
 
-export default class Example extends React.Component {
+class DateRange extends React.Component {
     static defaultProps = {
         numberOfMonths: 2,
     };
@@ -10,23 +12,17 @@ export default class Example extends React.Component {
         super(props);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
-        this.state = this.getInitialState();
     }
-    getInitialState() {
-        return {
-            from: undefined,
-            to: undefined,
-        };
-    }
+
     handleDayClick(day) {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range);
+        const range = DateUtils.addDayToRange(day, this.props.datePickerValue);
+        this.props.dispatchChangeDatePicker(range);
     }
     handleResetClick() {
-        this.setState(this.getInitialState());
+        this.props.dispatchChangeDatePicker();
     }
     render() {
-        const { from, to } = this.state;
+        const { from, to } = this.props.datePickerValue;
         const modifiers = { start: from, end: to };
         return (
             <div className="RangeExample">
@@ -44,6 +40,7 @@ export default class Example extends React.Component {
                         </button>
                     )}
                 </p>
+
                 <DayPicker
                     className="Selectable"
                     numberOfMonths={this.props.numberOfMonths}
@@ -55,3 +52,17 @@ export default class Example extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (store) => ({
+    datePickerValue: store.datePickerValue
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    dispatchChangeDatePicker: (value) => dispatch(changeDatePicker(value))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DateRange)
+
