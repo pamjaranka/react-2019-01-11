@@ -1,4 +1,4 @@
-import {INCREMENT, DELETE_ARTICLE, CHANGE_SELECT, CHANGE_DATE_PICKER} from '../constants';
+import {INCREMENT, DELETE_ARTICLE, FILTER_ARTICLE, CHANGE_SELECT, CHANGE_DATE_PICKER} from '../constants';
 
 export const increment = () => ({
     type: INCREMENT
@@ -7,6 +7,11 @@ export const increment = () => ({
 export const deleteArticle = (id) => ({
     type: DELETE_ARTICLE,
     payload: {id}
+})
+
+export const filterArticles = (ids) => ({
+    type: FILTER_ARTICLE,
+    payload: ids
 })
 
 export const changeSelect = (value) => ({

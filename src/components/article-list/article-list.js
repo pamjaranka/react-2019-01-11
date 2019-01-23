@@ -6,37 +6,49 @@ import {connect} from 'react-redux';
 
 export const TypeArticles = PropTypes.arrayOf(TypeArticle)
 
-class ArticleList extends Component{
-    static propTypes = {
-        articlesFromStore: TypeArticles
-    }
-    render() {
-        return <ul>{this.articles}</ul>;
-    }
+class ArticleList extends Component {
+  static propTypes = {
+    articlesFromStore: TypeArticles
+  }
 
-    componentDidMount() {
-        this.props.fetchData && this.props.fetchData()
-    }
+  render() {
+    return <ul>{this.articles}</ul>;
+  }
 
-    get articles() {
-        const {
-            openItemId,
-            toggleOpenArticle,
-            articlesFromStore
-        } = this.props
+  componentDidMount() {
+    this.props.fetchData && this.props.fetchData()
+  }
 
-        return articlesFromStore.map(article => (
-            <li key={article.id} className="test--art__container">
-                <Article
-                    article={article}
-                    isOpen={article.id === openItemId}
-                    toggleArticle={toggleOpenArticle}
-                />
-            </li>
-        ))
-    }
+  get articles() {
+    const {
+      openItemId,
+      toggleOpenArticle,
+      articlesFromStore,
+      filteredArticles
+    } = this.props
+
+    return articlesFromStore.map(article => {
+      if (filteredArticles.includes(article.id)) {
+        return (
+          <li key={article.id} className="test--art__container">
+            <Article
+              article={article}
+              isOpen={article.id === openItemId}
+              toggleArticle={toggleOpenArticle}
+            />
+          </li>
+        )
+      }
+    });
+
+  }
 }
 
+const mapStateToProps = (store) => ({
+  articlesFromStore: store.articles,
+  filteredArticles: store.filteredArticles
+});
+
 export default connect(
-    (store) => ({articlesFromStore: store.articles})
+  mapStateToProps
 )(accordion(ArticleList))

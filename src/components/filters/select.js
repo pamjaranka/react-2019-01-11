@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Select from 'react-select'
 import connect from "react-redux/es/connect/connect";
-import {changeSelect} from "../../ac";
+import {changeSelect, filterArticles} from "../../ac";
 
 class SelectFilter extends Component {
     render() {
@@ -23,7 +23,8 @@ class SelectFilter extends Component {
     }
 
     handleSelectChange = (selectedOption) => {
-        this.props.dispatchChangeSelect(selectedOption)
+        this.props.dispatchChangeSelect(selectedOption);
+        this.props.dispatchFilterArticles(selectedOption);
     }
 
 }
@@ -34,10 +35,11 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchChangeSelect: (value) => dispatch(changeSelect(value))
+    dispatchChangeSelect: (value) => dispatch(changeSelect(value)),
+    dispatchFilterArticles: (value) => dispatch(filterArticles(value))
 });
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(SelectFilter)
