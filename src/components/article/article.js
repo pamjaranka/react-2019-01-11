@@ -5,6 +5,7 @@ import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
 import {connect} from 'react-redux';
 import {deleteArticle} from '../../ac';
+import {formatDate} from "../../utils";
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -21,7 +22,7 @@ class Article extends PureComponent {
         this.setState({error})
     }
     render() {
-        const {article: {title}, isOpen} = this.props
+        const {article: {title, date}, isOpen} = this.props
         return (
             <div>
                 <h3>
@@ -31,6 +32,7 @@ class Article extends PureComponent {
                     </button>
                     <button onClick={this.handleDelete}>Delete</button>
                 </h3>
+                 <time>{formatDate(date)}</time>
                 <CSSTransition
                     transitionName="article"
                     transitionEnterTimeout={300}

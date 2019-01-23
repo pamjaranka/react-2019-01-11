@@ -2,6 +2,7 @@ import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import {changeDatePicker} from "../../ac";
+import {formatDate} from "../../utils";
 import connect from "react-redux/es/connect/connect";
 
 class DateRange extends React.Component {
@@ -21,6 +22,7 @@ class DateRange extends React.Component {
     handleResetClick() {
         this.props.dispatchChangeDatePicker();
     }
+
     render() {
         const { from, to } = this.props.datePickerValue;
         const modifiers = { start: from, end: to };
@@ -31,8 +33,8 @@ class DateRange extends React.Component {
                     {from && !to && 'Please select the last day.'}
                     {from &&
                     to &&
-                    `Selected from ${from.toLocaleDateString()} to
-                ${to.toLocaleDateString()}`}{' '}
+                    `Selected from ${formatDate(from)} to
+                ${formatDate(to)}`}{' '}
                     {from &&
                     to && (
                         <button className="link" onClick={this.handleResetClick}>
