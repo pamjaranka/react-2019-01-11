@@ -1,7 +1,7 @@
 import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-import {changeDatePicker} from "../../ac";
+import {filterArticles, filterData} from "../../ac";
 import {formatDate} from "../../utils";
 import connect from "react-redux/es/connect/connect";
 
@@ -16,15 +16,17 @@ class DateRange extends React.Component {
     }
 
     handleDayClick(day) {
-        const range = DateUtils.addDayToRange(day, this.props.datePickerValue);
-        this.props.dispatchChangeDatePicker(range);
+        const range = DateUtils.addDayToRange(day, this.props.filterData.datePickerValue);
+        this.props.dispatchFilterData('datePickerValue', range);
+        this.props.dispatchFilterArticles(this.props.filterData, 'datePickerValue', range);
     }
     handleResetClick() {
-        this.props.dispatchChangeDatePicker();
+        this.props.dispatchFilterData('datePickerValue');
+        this.props.dispatchFilterArticles(this.props.filterData, 'datePickerValue');
     }
 
     render() {
-        const { from, to } = this.props.datePickerValue;
+        const { from, to } = this.props.filterData.datePickerValue;
         const modifiers = { start: from, end: to };
         return (
             <div className="RangeExample">
@@ -56,11 +58,12 @@ class DateRange extends React.Component {
 }
 
 const mapStateToProps = (store) => ({
-    datePickerValue: store.datePickerValue
+    filterData: store.filterData
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchChangeDatePicker: (value) => dispatch(changeDatePicker(value))
+    dispatchFilterData: (key, value) => dispatch(filterData(key, value)),
+    dispatchFilterArticles: (data, key, value) => dispatch(filterArticles(data, key, value))
 });
 
 export default connect(

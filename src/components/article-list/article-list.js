@@ -24,11 +24,11 @@ class ArticleList extends Component {
       openItemId,
       toggleOpenArticle,
       articlesFromStore,
-      filteredArticles
+      //filteredArticles
     } = this.props
 
     return articlesFromStore.map(article => {
-      if (filteredArticles.includes(article.id)) {
+      if (article.isVisible) {
         return (
           <li key={article.id} className="test--art__container">
             <Article
@@ -46,7 +46,7 @@ class ArticleList extends Component {
 
 const mapStateToProps = (store) => ({
   articlesFromStore: store.articles,
-  filteredArticles: store.filteredArticles
+  //filteredArticles: store.filteredArticles
 });
 
 export default connect(

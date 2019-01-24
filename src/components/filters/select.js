@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Select from 'react-select'
 import connect from "react-redux/es/connect/connect";
-import {changeSelect, filterArticles} from "../../ac";
+import {filterArticles, filterData} from "../../ac";
 
 class SelectFilter extends Component {
     render() {
@@ -9,7 +9,7 @@ class SelectFilter extends Component {
             <Select
                 options={this.optionsForSelect}
                 onChange={this.handleSelectChange}
-                value={this.props.selectValue}
+                value={this.props.filterData.selectValue}
                 isMulti
             />
         )
@@ -23,20 +23,20 @@ class SelectFilter extends Component {
     }
 
     handleSelectChange = (selectedOption) => {
-        this.props.dispatchChangeSelect(selectedOption);
-        this.props.dispatchFilterArticles(selectedOption);
+        this.props.dispatchFilterData('selectValue', selectedOption);
+        this.props.dispatchFilterArticles(this.props.filterData, 'selectValue', selectedOption);
     }
 
 }
 
 const mapStateToProps = (store) => ({
     articlesFromStore: store.articles,
-    selectValue: store.selectValue
+    filterData: store.filterData
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatchChangeSelect: (value) => dispatch(changeSelect(value)),
-    dispatchFilterArticles: (value) => dispatch(filterArticles(value))
+    dispatchFilterData: (key, value) => dispatch(filterData(key, value)),
+    dispatchFilterArticles: (data, key, value) => dispatch(filterArticles(data, key, value))
 });
 
 export default connect(
