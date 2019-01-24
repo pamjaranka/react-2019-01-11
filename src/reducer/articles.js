@@ -11,7 +11,6 @@ const defaultArticles = articlesMock.map((article) => {
 
 const filteredArticlesHandler = (articles, payload) => {
     const filterData = updateFilterData(payload.data, payload.key, payload.value);
-
     const selectedIds = filterData.selectValue && filterData.selectValue.map((item) => item.value);
     const dateFrom = filterData.datePickerValue.from && Date.parse(filterData.datePickerValue.from);
     const dateTo = filterData.datePickerValue.to && Date.parse(filterData.datePickerValue.to);
@@ -47,6 +46,8 @@ export default (articles = defaultArticles, action) => {
 
     switch (type) {
         case FILTER_ARTICLES:
+            //можно ли здесь как-то получать текущий state всего store,
+            //а не только изменяемого состояния?
             return filteredArticlesHandler(articles, payload);
         case DELETE_ARTICLE:
             return articles.filter(article => article.id !== payload.id);
