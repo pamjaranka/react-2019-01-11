@@ -40,7 +40,6 @@ class ArticleList extends Component {
         )
       }
     });
-
   }
 }
 
