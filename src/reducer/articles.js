@@ -47,9 +47,7 @@ export default (articles = defaultArticles, action) => {
 
     switch (type) {
         case FILTER_ARTICLES:
-            const filteredArticles = filteredArticlesHandler(articles, payload);
-
-            return filteredArticles;
+            return filteredArticlesHandler(articles, payload);
         case DELETE_ARTICLE:
             return articles.filter(article => article.id !== payload.id);
         default:
