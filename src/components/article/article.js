@@ -11,7 +11,8 @@ export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    comments: TypeComments
+    comments: TypeComments,
+    isVisible: PropTypes.string.bool
 })
 
 class Article extends PureComponent {
