@@ -22,7 +22,7 @@ const filteredArticlesHandler = (articles, payload) => {
 
         let isVisible = true;
 
-        if(selectedIds) {
+        if(selectedIds && selectedIds.length) {
             isVisible = selectedIds.includes(article.id);
         }
 
@@ -47,13 +47,12 @@ export default (articles = defaultArticles, action) => {
 
     switch (type) {
         case FILTER_ARTICLES:
-
             const filteredArticles = filteredArticlesHandler(articles, payload);
 
             return filteredArticles;
         case DELETE_ARTICLE:
             return articles.filter(article => article.id !== payload.id);
         default:
-            return articles
+            return articles;
     }
 }

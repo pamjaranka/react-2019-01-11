@@ -8,8 +8,6 @@ export default (articleIds = defaultarticleIds, action) => {
 
     switch (type) {
         case FILTER_ARTICLES:
-            //compare articleIds with payload
-            //console.log(articleIds)
             if (payload.length) {
                 return payload.map((item) => item.value);
             } else {
