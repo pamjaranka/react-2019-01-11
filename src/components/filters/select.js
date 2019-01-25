@@ -23,7 +23,19 @@ class SelectFilter extends Component {
     }
 
     handleSelectChange = (selectedOption) => {
-        this.props.changeSelection(selectedOption)
+        this.props.changeSelectionProp(selectedOption)
+    }
+}
+
+// const mapDispatchToProps = {
+//     changeSelectionProp: changeSelection
+// }
+
+const mapDispatchToPropsFunc = (dispatch) => {
+    return {
+        changeSelectionProp: (selectedOption) => {
+            dispatch(changeSelection(selectedOption))
+        }
     }
 }
 
@@ -32,5 +44,5 @@ export default connect(
         articles: state.articles,
         selectedOptions: state.filters.selected
     }),
-    {changeSelection}
+    mapDispatchToPropsFunc
 )(SelectFilter)
