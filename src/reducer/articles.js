@@ -6,7 +6,6 @@ export default (articles = articlesMock, action) => {
     switch (type) {
         case DELETE_ARTICLE:
             return articles.filter(article => article.id !== payload.id)
-            break;
         default:
             return articles
     }
