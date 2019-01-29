@@ -14,24 +14,20 @@ export default (articles = defaultArticles, action) => {
         case ADD_COMMENT:
             const {articleId, commentId} = payload.comment;
 
-            let article = articles.filter(article => article.id === articleId);
-            article = article[0];
+            let commentedArticles = {...articles};
+            let commentedArticle = commentedArticles[articleId];
 
-            article = {
-                ...article,
-                comments: [...article.comments, commentId]
-            };
-            console.log({
-                ...articles,
-                ...article
-            })
+            commentedArticles[articleId].comments = [...commentedArticle.comments, commentId];
 
+            console.log('comment added')
+            console.log(commentedArticles)
 
-            return articles;
-
-
+            return commentedArticles;
         case DELETE_ARTICLE:
-            return articles.filter(article => article.id !== payload.id)
+            let newArticles = {...articles};
+            delete newArticles[payload.id];
+
+            return newArticles;
         default:
             return articles
     }

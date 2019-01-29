@@ -12,8 +12,24 @@ export const filteredArticlesSelector = createSelector(
         const {selected, dateRange: {from, to}} = filters
 
         console.log('filteredArticlesSelector');
-
-        return Object.keys(articles).filter((id) => {
+        //
+        // let filterResult = {};
+        //
+        // for(let id in articles) {
+        //     const article = articles[id];
+        //     const publishedDate = Date.parse(article.date);
+        //     if(!selected.length ||
+        //         selected.find((selected) => selected.value === id) &&
+        //         (!from || !to || (publishedDate > from && publishedDate < to))
+        //     ) {
+        //         filterResult[id] = article;
+        //     }
+        // }
+        //
+        // return filterResult;
+        //console.log(filterResult)
+        //
+        return Object.keys(articles).filter(id => {
             const article = articles[id];
             const publishedDate = Date.parse(article.date);
             return (

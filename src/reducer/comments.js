@@ -18,8 +18,8 @@ export default (comments = defaultComments, action) => {
 
             newComment[commentId] = {
                 id: commentId,
-                text: text,
-                user: user
+                user: user,
+                text: text
             };
 
             return {...comments, ...newComment};

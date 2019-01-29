@@ -22,6 +22,7 @@ class CommentList extends Component {
 
     render() {
         const { isOpen, toggleOpenItem } = this.props
+        console.log('comments list render')
         return (
             <div>
                 <button onClick={toggleOpenItem} className="test--comment-list__btn">
@@ -40,6 +41,7 @@ class CommentList extends Component {
     }
 
     get body() {
+        console.log(this.props)
         const { comments, isOpen } = this.props
 
         if (!isOpen) return null;

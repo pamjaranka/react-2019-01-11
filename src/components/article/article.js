@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
 import {connect} from 'react-redux';
-import {deleteArticle} from '../../ac';
+import {deleteArticle, addComment} from '../../ac';
+import CommentForm from "../comment-form";
 import {createArticleSelector} from "../../selectors";
+import uuidv1 from "uuid/v1";
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -57,6 +59,7 @@ class Article extends PureComponent {
 
     get body() {
         const {article, isOpen} = this.props
+        console.log(article)
 
         if (!isOpen) return null
         return (
@@ -65,10 +68,24 @@ class Article extends PureComponent {
                 {
                     this.state.error ?
                         null :
-                        <CommentList comments={article.comments}/>
+                        <CommentList
+                            comments={article.comments}/>
                 }
-                </section>
+                <CommentForm
+                    addComment={this.handleAddComment}
+                    articleId={article.id}
+                /></section>
         )
+    }
+
+    handleAddComment = (comment) => {
+        const { dispatchAddComment, id: articleId } = this.props;
+
+        dispatchAddComment({
+            articleId: articleId,
+            commentId: uuidv1(),
+            ...comment
+        })
     }
 }
 
@@ -81,7 +98,6 @@ Article.propTypes = {
 const initMapStateToProps = () => {
     const articlesSelector = createArticleSelector()
     return (store, ownProps) => {
-
         return {
             article: articlesSelector(store, ownProps)
         }
@@ -91,6 +107,7 @@ const initMapStateToProps = () => {
 export default connect(
     initMapStateToProps,
     (dispatch) => ({
-        dispatchDeleteArticle: (id) => dispatch(deleteArticle(id))
+        dispatchDeleteArticle: (id) => dispatch(deleteArticle(id)),
+        dispatchAddComment: (comment) => dispatch(addComment(comment))
     })
 )(Article)
