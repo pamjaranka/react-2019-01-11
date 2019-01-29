@@ -4,7 +4,7 @@ export const filtersSelector = (store) => store.filters
 export const articlesMapSelector = (state) => state.articles
 export const articlesSelector = createSelector(
     articlesMapSelector,
-    (articlesMap) => Object.values(articlesMap)
+    (articlesMap) => articlesMap.valueSeq().toArray()
 )
 export const commentsSelector = (store) => store.comments
 export const idSelector = (_, ownProps) => ownProps.id
@@ -15,7 +15,7 @@ export const filteredArticlesSelector = createSelector(
     (filters, articles) => {
         const {selected, dateRange: {from, to}} = filters
 
-        console.log('filteredArticlesSelector');
+        console.log('filteredArticlesSelector', filters, articles);
 
         return articles.filter(article => {
             const publishedDate = Date.parse(article.date)
@@ -34,8 +34,7 @@ export const createCommentSelector = () => createSelector(
     commentsSelector,
     idSelector,
     (comments, id) => {
-        console.log('commentSelector', id);
-        return comments[id]
+        return comments.get(id)
     }
 )
 

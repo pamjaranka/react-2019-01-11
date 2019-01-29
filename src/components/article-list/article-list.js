@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {filteredArticlesSelector} from '../../selectors';
 
-export const TypeArticles = PropTypes.arrayOf(TypeArticle)
+export const TypeArticles = PropTypes.array
 
 class ArticleList extends Component{
     static propTypes = {
         articlesFromStore: TypeArticles
     }
     render() {
-        console.log('article-list render');
+        console.log('article-list render', this.props.articlesFromStore);
         return <ul>{this.articles}</ul>;
     }
 
