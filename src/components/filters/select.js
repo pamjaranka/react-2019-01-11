@@ -16,9 +16,9 @@ class SelectFilter extends Component {
     }
 
     get optionsForSelect() {
-        return this.props.articles.map((item) => ({
-            value: item.id,
-            label: item.title
+        return Object.entries(this.props.articles).map(([id, article]) => ({
+            value: id,
+            label: article.title
         }))
     }
 

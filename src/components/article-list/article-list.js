@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {filteredArticlesSelector} from '../../selectors';
 
-export const TypeArticles = PropTypes.arrayOf(TypeArticle)
+export const TypeArticles = PropTypes.arrayOf(PropTypes.string);
 
 class ArticleList extends Component{
     static propTypes = {
@@ -22,18 +22,17 @@ class ArticleList extends Component{
 
     get articles() {
         const {
+            articlesFromStore,
             openItemId,
             toggleOpenArticle,
-            articlesFromStore
-        } = this.props
+        } = this.props;
 
-        return articlesFromStore.map(article => (
-            <li key={article.id} className="test--art__container">
+        return articlesFromStore.map((id) => (
+            <li key={id} className="test--art__container">
                 <Article
-                    article={article}
-                    isOpen={article.id === openItemId}
-                    toggleArticle={toggleOpenArticle}
-                />
+                    id={id}
+                    isOpen={id === openItemId}
+                    toggleArticle={toggleOpenArticle} />
             </li>
         ))
     }
