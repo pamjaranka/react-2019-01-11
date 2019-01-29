@@ -23,7 +23,7 @@ class Article extends PureComponent {
     }
     componentDidUpdate(oldProps) {
         const {isOpen, loadArticle, article} = this.props
-        if (!oldProps.isOpen && isOpen) {
+        if (!oldProps.isOpen && isOpen && !article.text) {
             loadArticle(article.id)
         }
     }
