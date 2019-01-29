@@ -1,7 +1,8 @@
 import {createSelector} from 'reselect';
 
 export const filtersSelector = (store) => store.filters
-export const articlesMapSelector = (state) => state.articles
+export const loadingSelector = (store) => store.articles.loading
+export const articlesMapSelector = (state) => state.articles.entities
 export const articlesSelector = createSelector(
     articlesMapSelector,
     (articlesMap) => articlesMap.valueSeq().toArray()
@@ -15,7 +16,7 @@ export const filteredArticlesSelector = createSelector(
     (filters, articles) => {
         const {selected, dateRange: {from, to}} = filters
 
-        console.log('filteredArticlesSelector', filters, articles);
+        console.log('filteredArticlesSelector');
 
         return articles.filter(article => {
             const publishedDate = Date.parse(article.date)

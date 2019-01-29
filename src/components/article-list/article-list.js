@@ -3,8 +3,9 @@ import Article from '../article';
 import accordion from '../../decorators/accordion';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {filteredArticlesSelector} from '../../selectors';
+import {filteredArticlesSelector, loadingSelector} from '../../selectors';
 import {loadAllArticles} from '../../ac';
+import Loader from '../common/loader';
 
 export const TypeArticles = PropTypes.array
 
@@ -13,8 +14,12 @@ class ArticleList extends Component{
         articlesFromStore: TypeArticles
     }
     render() {
-        console.log('article-list render', this.props.articlesFromStore);
-        return <ul>{this.articles}</ul>;
+        const {loading} = this.props
+        return (
+            loading ?
+                <Loader/> :
+                <ul>{this.articles}</ul>
+        );
     }
 
     componentDidMount() {
@@ -44,7 +49,8 @@ export default connect(
     store => {
         console.log('article-list connect');
         return {
-            articlesFromStore: filteredArticlesSelector(store)
+            articlesFromStore: filteredArticlesSelector(store),
+            loading: loadingSelector(store)
         }
     },
     {
