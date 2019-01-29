@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import Article, {TypeArticle} from '../article';
+import Article from '../article';
 import accordion from '../../decorators/accordion';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {filteredArticlesSelector} from '../../selectors';
+import {loadAllArticles} from '../../ac';
 
 export const TypeArticles = PropTypes.array
 
@@ -45,5 +46,8 @@ export default connect(
         return {
             articlesFromStore: filteredArticlesSelector(store)
         }
+    },
+    {
+        fetchData: loadAllArticles
     }
 )(accordion(ArticleList))
