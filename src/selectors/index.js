@@ -2,6 +2,7 @@ import {createSelector} from 'reselect';
 
 export const filtersSelector = (store) => store.filters
 export const loadingSelector = (store) => store.articles.loading
+export const loadedSelector = (store) => store.articles.loaded
 export const articlesMapSelector = (state) => state.articles.entities
 export const articlesSelector = createSelector(
     articlesMapSelector,

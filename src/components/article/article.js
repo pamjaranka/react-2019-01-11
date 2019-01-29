@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
 import {connect} from 'react-redux';
-import {deleteArticle} from '../../ac';
+import {deleteArticle, loadArticle} from '../../ac';
+import Loader from '../common/loader';
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -20,8 +21,14 @@ class Article extends PureComponent {
     componentDidCatch(error) {
         this.setState({error})
     }
+    componentDidUpdate(oldProps) {
+        const {isOpen, loadArticle, article} = this.props
+        if (!oldProps.isOpen && isOpen) {
+            loadArticle(article.id)
+        }
+    }
     render() {
-        const {article: {title}, isOpen} = this.props
+        const {article: {title, loading}, isOpen} = this.props
         return (
             <div>
                 <h3>
@@ -36,7 +43,7 @@ class Article extends PureComponent {
                     transitionEnterTimeout={300}
                     transitionLeaveTimeout={300}
                 >
-                    {this.body}
+                    {loading ? <Loader /> : this.body}
                 </CSSTransition>
             </div>
         )
@@ -75,6 +82,7 @@ Article.propTypes = {
 export default connect(
     null,
     (dispatch) => ({
-        dispatchDeleteArticle: (id) => dispatch(deleteArticle(id))
+        dispatchDeleteArticle: (id) => dispatch(deleteArticle(id)),
+        loadArticle: (id) => dispatch(loadArticle(id))
     })
 )(Article)

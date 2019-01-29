@@ -3,7 +3,7 @@ import Article from '../article';
 import accordion from '../../decorators/accordion';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {filteredArticlesSelector, loadingSelector} from '../../selectors';
+import {filteredArticlesSelector, loadedSelector, loadingSelector} from '../../selectors';
 import {loadAllArticles} from '../../ac';
 import Loader from '../common/loader';
 
@@ -23,7 +23,7 @@ class ArticleList extends Component{
     }
 
     componentDidMount() {
-        this.props.fetchData && this.props.fetchData()
+        !this.props.loaded && this.props.fetchData && this.props.fetchData()
     }
 
     get articles() {
@@ -50,7 +50,8 @@ export default connect(
         console.log('article-list connect');
         return {
             articlesFromStore: filteredArticlesSelector(store),
-            loading: loadingSelector(store)
+            loading: loadingSelector(store),
+            loaded: loadedSelector(store)
         }
     },
     {

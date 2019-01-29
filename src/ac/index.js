@@ -5,7 +5,7 @@ import {
     CHANGE_DATE_RANGE,
     RESET_DATE_RANGE,
     ADD_COMMENT,
-    LOAD_ALL_ARTICLES
+    LOAD_ALL_ARTICLES, LOAD_ARTICLE
 } from '../constants';
 
 export const increment = () => ({
@@ -43,5 +43,13 @@ export function loadAllArticles() {
     return {
         type: LOAD_ALL_ARTICLES,
         callAPI: '/api/article'
+    }
+}
+
+export function loadArticle(id) {
+    return {
+        type: LOAD_ARTICLE,
+        payload: {id},
+        callAPI: `/api/article/${id}`
     }
 }
