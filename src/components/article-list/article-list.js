@@ -46,5 +46,4 @@ export default connect(
             articlesFromStore: filteredArticlesSelector(store)
         }
     }
-)
-(accordion(ArticleList))
+)(accordion(ArticleList))
