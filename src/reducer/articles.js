@@ -14,13 +14,13 @@ export default (articles = defaultArticles, action) => {
         case ADD_COMMENT:
             const {articleId, commentId} = payload.comment;
 
-            let commentedArticles = {...articles};
-            let commentedArticle = commentedArticles[articleId];
+            let commentedArticles = Object.assign({}, articles);
 
-            commentedArticles[articleId].comments = [...commentedArticle.comments, commentId];
+            commentedArticles[articleId] = {
+                ...commentedArticles[articleId]
+            }
 
-            console.log('comment added')
-            console.log(commentedArticles)
+            commentedArticles[articleId].comments = [...commentedArticles[articleId].comments, commentId];
 
             return commentedArticles;
         case DELETE_ARTICLE:
