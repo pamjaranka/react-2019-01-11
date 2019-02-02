@@ -12,9 +12,12 @@ export default (articles = defaultArticles, action) => {
     const {type, payload} = action
     switch (type) {
         case ADD_COMMENT:
-            const {articleId, commentId} = payload.comment;
+            const {articleId} = payload.comment;
+            const commentId = action.generatedId;
 
-            let commentedArticles = Object.assign({}, articles);
+            if(!commentId) return articles;
+
+            let commentedArticles = {...articles};
 
             commentedArticles[articleId] = {
                 ...commentedArticles[articleId]

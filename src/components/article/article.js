@@ -7,7 +7,6 @@ import {connect} from 'react-redux';
 import {deleteArticle, addComment} from '../../ac';
 import CommentForm from "../comment-form";
 import {createArticleSelector} from "../../selectors";
-import uuidv1 from "uuid/v1";
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -59,7 +58,6 @@ class Article extends PureComponent {
 
     get body() {
         const {article, isOpen} = this.props
-        console.log(article)
 
         if (!isOpen) return null
         return (
@@ -83,7 +81,6 @@ class Article extends PureComponent {
 
         dispatchAddComment({
             articleId: articleId,
-            commentId: uuidv1(),
             ...comment
         })
     }

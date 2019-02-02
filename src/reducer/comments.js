@@ -13,8 +13,11 @@ export default (comments = defaultComments, action) => {
 
     switch (type) {
         case ADD_COMMENT:
-            const {text, user, commentId} = payload.comment;
+            const {text, user} = payload.comment;
+            const commentId = action.generatedId;
             const newComment = {};
+
+            if(!commentId) return comments;
 
             newComment[commentId] = {
                 id: commentId,

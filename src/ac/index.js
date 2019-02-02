@@ -32,5 +32,6 @@ export const resetDateRange = () => ({
 
 export const addComment = (comment) => ({
     type: ADD_COMMENT,
-    payload: {comment}
+    payload: {comment},
+    generateId: true
 })
