@@ -4,7 +4,7 @@ import {
     CHANGE_SELECTION,
     CHANGE_DATE_RANGE,
     RESET_DATE_RANGE,
-    ADD_COMMENT,
+    ADD_COMMENT, LOAD_ALL_COMMENTS,
     LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL
 } from '../constants';
 
@@ -66,4 +66,31 @@ export function loadArticle(id) {
             }))
 
     }
+}
+
+export function loadAllComments() {
+  return function(dispatch) {
+    dispatch({
+      type: LOAD_ALL_COMMENTS + START
+    })
+
+    fetch(`/api/comment`)
+      .then((res) => res.json())
+      .then((response) => {
+        dispatch({
+          payload: {
+            entities: response.records
+          },
+          type: LOAD_ALL_COMMENTS + SUCCESS
+        })
+      })
+      .catch((error) =>
+        dispatch({
+          type: LOAD_ALL_COMMENTS + FAIL,
+          payload: {
+            error
+          }
+        })
+      )
+  }
 }

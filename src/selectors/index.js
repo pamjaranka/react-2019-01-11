@@ -32,6 +32,9 @@ export const filteredArticlesSelector = createSelector(
     }
 )
 
+export const loadingCommentsSelector = (store) => store.articles.loadingComments
+export const loadedCommentsSelector = (store) => store.articles.loadedComments
+
 export const createCommentSelector = () => createSelector(
     commentsSelector,
     idSelector,
