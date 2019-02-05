@@ -2,7 +2,7 @@ import {START,SUCCESS,FAIL} from '../constants';
 
 export default store => next => action => {
     const {callAPI, ...rest} = action
-    if (!callAPI) next(rest)
+    if (!callAPI) return next(rest)
 
     next({...rest, type: rest.type + START})
     fetch(callAPI)
