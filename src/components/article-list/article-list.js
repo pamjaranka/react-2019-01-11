@@ -33,7 +33,7 @@ class ArticleList extends Component{
 
         return articlesFromStore.map(article => (
             <li key={article.id} className="test--art__container">
-                <NavLink to={`/article/${article.id}`} activeStyle={{color: 'red'}}>{article.title}</NavLink>
+                <NavLink to={`/articles/${article.id}`} activeStyle={{color: 'red'}}>{article.title}</NavLink>
             </li>
         ))
     }

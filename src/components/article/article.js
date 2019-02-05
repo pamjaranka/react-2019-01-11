@@ -9,10 +9,10 @@ import Loader from '../common/loader';
 import {articleSelector} from '../../selectors'
 
 export const TypeArticle = PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
 
     // connect
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     text: PropTypes.string,
     comments: TypeComments
 })
@@ -24,10 +24,10 @@ class Article extends PureComponent {
     componentDidCatch(error) {
         this.setState({error})
     }
-    componentDidUpdate(oldProps) {
-        const {loadArticle, article} = this.props
+    componentDidMount() {
+        const {loadArticle, article, id} = this.props
         if (!article || (!article.text && !article.loading)) {
-            loadArticle(article.id)
+            loadArticle(id)
         }
     }
     render() {
@@ -54,10 +54,6 @@ class Article extends PureComponent {
         this.props.dispatchDeleteArticle(this.props.article.id)
     }
 
-    toggleOpen = () => {
-        this.props.toggleArticle(this.props.article.id)
-    }
-
     get body() {
         const {article} = this.props
         return (
@@ -74,8 +70,6 @@ class Article extends PureComponent {
 }
 
 Article.propTypes = {
-    isOpen: PropTypes.bool,
-    toggleArticle: PropTypes.func,
     article: TypeArticle
 }
 

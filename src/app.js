@@ -3,7 +3,7 @@ import ArticlesPage from './routes/articles';
 import UserForm from './components/user-form/user-form';
 import Filters from './components/filters';
 import Counter from './components/counter';
-import {Route, NavLink} from 'react-router-dom';
+import {Route, NavLink, Switch} from 'react-router-dom';
 
 class App extends Component {
     render() {
@@ -17,11 +17,14 @@ class App extends Component {
                     <NavLink to={'/filters'} activeStyle={{color: 'red'}}>Filters</NavLink>
                 </div>
                 <div>
-                    <NavLink to={'/article'} activeStyle={{color: 'red'}}>Articles</NavLink>
+                    <NavLink to={'/articles'} activeStyle={{color: 'red'}}>Articles</NavLink>
                 </div>
-                <Route path={"/counter"} component={Counter}/>
-                <Route path={"/filters"} component={Filters}/>
-                <Route path={"/article"} component={ArticlesPage}/>
+                <Switch>
+                    <Route path={"/counter"} component={Counter} exact />
+                    <Route path={"/filters"} component={Filters}/>
+                    <Route path={"/articles/new"} render={() => <h1>New article form</h1>}/>
+                    <Route path={"/articles"} component={ArticlesPage}/>
+                </Switch>
             </div>
         );
     }
