@@ -10,6 +10,7 @@ export const articlesSelector = createSelector(
 )
 export const commentsSelector = (store) => store.comments.entities
 export const idSelector = (_, ownProps) => ownProps.id
+export const articleSelector = createSelector(articlesMapSelector, idSelector, (articles, id) => articles.get(id))
 
 export const filteredArticlesSelector = createSelector(
     filtersSelector,

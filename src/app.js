@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ArticleList from './components/article-list/article-list';
+import ArticlesPage from './routes/articles';
 import UserForm from './components/user-form/user-form';
 import Filters from './components/filters';
 import Counter from './components/counter';
-import {Route, Link, NavLink} from 'react-router-dom';
+import {Route, NavLink} from 'react-router-dom';
 
 class App extends Component {
     render() {
@@ -17,11 +17,11 @@ class App extends Component {
                     <NavLink to={'/filters'} activeStyle={{color: 'red'}}>Filters</NavLink>
                 </div>
                 <div>
-                    <NavLink to={'/articles'} activeStyle={{color: 'red'}}>Articles</NavLink>
+                    <NavLink to={'/article'} activeStyle={{color: 'red'}}>Articles</NavLink>
                 </div>
                 <Route path={"/counter"} component={Counter}/>
                 <Route path={"/filters"} component={Filters}/>
-                <Route path={"/articles"} component={ArticleList}/>
+                <Route path={"/article"} component={ArticlesPage}/>
             </div>
         );
     }
