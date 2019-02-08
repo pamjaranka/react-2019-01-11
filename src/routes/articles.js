@@ -9,15 +9,15 @@ class ArticlesPage extends Component {
         return (
             <div>
                 <ArticleList />
-                <Switch>
-                    <Route path={'/articles/:id'} render={this.getArticle}/>
-                    <Route path={'/articles'} render={() => <h2>Please select an article</h2>}/>
-                </Switch>
+                <Route path={'/articles/:id'} children={this.getArticle}/>
             </div>
         )
     }
 
     getArticle = ({match}) => {
+        if (match === null){
+            return <h2>Please select an article</h2>
+        }
         return <Article key={match.params.id} id={match.params.id}/>
     }
 }

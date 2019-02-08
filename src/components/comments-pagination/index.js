@@ -10,6 +10,7 @@ import {
     commentsPageIdsSelector
 } from '../../selectors'
 import {COMMENTS_PER_PAGE} from '../../constants'
+import {Redirect} from 'react-router-dom';
 
 class CommentsPagination extends Component {
     componentDidMount() {
@@ -21,8 +22,11 @@ class CommentsPagination extends Component {
     }
 
     render() {
-        const { total } = this.props
+        const { total, page } = this.props
         if (!total) return <Loader />
+        if (page > total / COMMENTS_PER_PAGE + 1) {
+            return <Redirect to={`/comments/${Math.floor(total / COMMENTS_PER_PAGE) + 1}`} />
+        }
         return (
             <div>
                 {this.getCommentItems()}
