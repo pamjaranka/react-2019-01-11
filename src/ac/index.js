@@ -77,10 +77,12 @@ export function loadArticle(id) {
     }
 }
 
-export function loadCommentsPaged(offset, limit = 5) {
+export function loadCommentsPaged(page = 1, limit = 5) {
+    const offset = (page - 1) * limit;
+    console.log(`/api/comment?limit=${limit}&offset=${offset}`)
     return {
         type: LOAD_COMMENTS_PAGED,
-        //payload: { articleId },
+        payload: { page },
         callAPI: `/api/comment?limit=${limit}&offset=${offset}`
     }
 }

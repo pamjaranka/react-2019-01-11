@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Comment from '../comment/comment'
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 // import './comment-list.css';
 import {connect} from 'react-redux'
 import Loader from '../common/loader';
-import {loadCommentsPaged} from '../../ac';
+import {loadAllArticles, loadCommentsPaged} from '../../ac';
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -22,7 +22,10 @@ class CommentListPaged extends Component {
     //     comments: []
     // }
 
-    componentDidUpdate(oldProps) {
+    componentDidMount(oldProps) {
+        console.log(this.props)
+        const page = this.props.page ? this.props.page : 1;
+        this.props.fetchData(page);
         // const { isOpen, article, loadArticleComments } = this.props
         // if (
         //     isOpen &&
@@ -35,18 +38,19 @@ class CommentListPaged extends Component {
     }
 
     render() {
+
         return (
             <div>444
                 {/*<button onClick={toggleOpenItem} className="test--comment-list__btn">*/}
-                    {/*{isOpen ? 'hide comments' : 'show comments'}*/}
+                {/*{isOpen ? 'hide comments' : 'show comments'}*/}
                 {/*</button>*/}
                 {/*<CSSTransition*/}
-                    {/*transitionName="comment-list"*/}
-                    {/*transitionEnterTimeout={300}*/}
-                    {/*transitionLeaveTimeout={300}*/}
+                {/*transitionName="comment-list"*/}
+                {/*transitionEnterTimeout={300}*/}
+                {/*transitionLeaveTimeout={300}*/}
 
                 {/*>*/}
-                    {/*{this.body}*/}
+                {/*{this.body}*/}
                 {/*</CSSTransition>*/}
             </div>
         )
@@ -64,14 +68,14 @@ class CommentListPaged extends Component {
         } = this.props
 
         if (!isOpen) return null;
-        if (commentsLoading) return <Loader />
+        if (commentsLoading) return <Loader/>
         if (!commentsLoaded) return null
 
         const body = comments.length ? (
             <ul>
                 {comments.map((id) => (
                     <li key={id} className="test--comment-list__item">
-                        <Comment id={id} />
+                        <Comment id={id}/>
                     </li>
                 ))}
             </ul>
@@ -87,5 +91,7 @@ class CommentListPaged extends Component {
 
 export default connect(
     null,
-    {loadCommentsPaged}
+    {
+        fetchData: loadCommentsPaged
+    }
 )(CommentListPaged)

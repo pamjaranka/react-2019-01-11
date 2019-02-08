@@ -8,19 +8,19 @@ class CommentsPage extends Component {
         return (
             <div>
                 <h1>Comments</h1>
-                <CommentListPaged />
-                {/*<Switch>*/}
-                    {/*<Route path={'/articles/:id'} render={this.getArticle}/>*/}
-                    {/*<Route path={'/articles'} render={() => <h2>Please select an article</h2>}/>*/}
-                {/*</Switch>*/}
+                <Switch>
+                    <Route path={'/comments/:page'} render={this.getComments}/>
+                    <Route path={'/comments'} render={this.getComments}/>
+                </Switch>
             </div>
         )
     }
 
-    // getArticle = ({match}) => {
-    //     console.log('articles match', match);
-    //     return <Article key={match.params.id} id={match.params.id}/>
-    // }
+    getComments = ({match}) => {
+        console.log('comments match', match);
+        const page = match.params.page ? match.params.page : '';
+        return <CommentListPaged page={page}/>
+    }
 }
 
 export default CommentsPage
