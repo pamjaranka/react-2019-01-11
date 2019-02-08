@@ -5,25 +5,21 @@ import ErrorPage from './routes/error';
 import UserForm from './components/user-form/user-form';
 import Filters from './components/filters';
 import Counter from './components/counter';
-import {Route, NavLink, Switch, Redirect} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
+import Menu from './components/menu';
+import MenuItem from './components/menu-item';
 
 class App extends Component {
     render() {
         return (
             <div>
                 <UserForm/>
-                <div>
-                    <NavLink to={'/counter'} activeStyle={{color: 'red'}}>Counter</NavLink>
-                </div>
-                <div>
-                    <NavLink to={'/filters'} activeStyle={{color: 'red'}}>Filters</NavLink>
-                </div>
-                <div>
-                    <NavLink to={'/articles'} activeStyle={{color: 'red'}}>Articles</NavLink>
-                </div>
-                <div>
-                    <NavLink to={'/comments/1'} activeStyle={{ color: 'red' }}>Comments</NavLink>
-                </div>
+                <Menu>
+                    <MenuItem to={'/counter'}>Counter</MenuItem>
+                    <MenuItem to={'/filters'}>Filters</MenuItem>
+                    <MenuItem to={'/articles'}>Articles</MenuItem>
+                    <MenuItem to={'/comments/1'}>Comments</MenuItem>
+                </Menu>
                 <Switch>
                     <Route path={"/counter"} component={Counter} exact strict />
                     <Route path={"/filters"} component={Filters}/>
