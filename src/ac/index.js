@@ -5,7 +5,14 @@ import {
     CHANGE_DATE_RANGE,
     RESET_DATE_RANGE,
     ADD_COMMENT,
-    LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL, LOAD_ARTICLE_COMMENTS
+    LOAD_ALL_ARTICLES,
+    LOAD_ARTICLE,
+    START,
+    SUCCESS,
+    FAIL,
+    LOAD_ARTICLE_COMMENTS,
+    LOAD_COMMENTS_FOR_PAGE,
+    COMMENTS_PER_PAGE
 } from '../constants';
 
 export const increment = () => ({
@@ -73,5 +80,21 @@ export function loadArticle(id) {
                 error
             }))
 
+    }
+}
+
+export function checkAndLoadCommentsForPage(page) {
+    return (dispatch, getState) => {
+        const {comments: { pagination }} = getState()
+
+        if (pagination.getIn([page, 'loading']) || pagination.getIn([page, 'ids'])) {
+            return
+        }
+
+        dispatch({
+            type: LOAD_COMMENTS_FOR_PAGE,
+            payload: { page },
+            callAPI: `/api/comment?limit=${COMMENTS_PER_PAGE}&offset=${(page - 1) * COMMENTS_PER_PAGE}`
+        })
     }
 }
