@@ -6,7 +6,6 @@ import {Switch} from 'react-router-dom';
 
 class ArticlesPage extends Component {
     render() {
-        console.log('ArticlesPage match', this.props.match);
         return (
             <div>
                 <ArticleList />
@@ -19,8 +18,7 @@ class ArticlesPage extends Component {
     }
 
     getArticle = ({match}) => {
-        console.log('articles match', match);
-         return <Article key={match.params.id} id={match.params.id}/>
+        return <Article key={match.params.id} id={match.params.id}/>
     }
 }
 

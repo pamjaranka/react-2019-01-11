@@ -18,8 +18,6 @@ export const filteredArticlesSelector = createSelector(
     (filters, articles) => {
         const {selected, dateRange: {from, to}} = filters
 
-        console.log('filteredArticlesSelector');
-
         return articles.filter(article => {
             const publishedDate = Date.parse(article.date)
             return (
