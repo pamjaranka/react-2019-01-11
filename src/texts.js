@@ -1,10 +1,12 @@
 export default {
     en: {
         'delete': 'Delete',
-        'open-comments': 'Open comments'
+        'show-comments': 'Show comments',
+        'hide-comments': 'Hide comments',
     },
     ru: {
         'delete': 'Удалить',
-        'open-comments': 'Открыть комментарии'
+        'show-comments': 'Показать комментарии',
+        'hide-comments': 'Скрыть комментарии',
     }
 }
