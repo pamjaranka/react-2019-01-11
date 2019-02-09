@@ -1,16 +1,24 @@
-import React, {PureComponent, Fragment} from 'react'
-import {Localization} from '../../contexts/localization';
+import React, {Component, Fragment} from 'react'
+import {Consumer as LocalizationConsumer, Provider as LocalizationProvider} from '../../contexts/localization';
 import texts from '../../texts';
 
-class Text extends PureComponent {
+class Text extends Component {
     render() {
-        const localization = texts[this.context.language];
+        return (
+            <LocalizationConsumer>
+                {({language}) => (
+                    <Fragment>{this.getValue(language)}</Fragment>
+                )}
+            </LocalizationConsumer>
+        )
+    }
+
+    getValue(language) {
+        const localization = texts[language];
         const value = localization[this.props.children] || this.props.children;
 
-        return <Fragment>{value}</Fragment>
+        return value;
     }
 }
-
-Text.contextType = Localization
 
 export default Text
