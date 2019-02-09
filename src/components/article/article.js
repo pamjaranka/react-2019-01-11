@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {deleteArticle, loadArticle} from '../../ac';
 import Loader from '../common/loader';
 import {articleSelector} from '../../selectors'
+import Text from '../../components/text';
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string,
@@ -33,11 +34,14 @@ class Article extends PureComponent {
     render() {
         const {article} = this.props
         if (!article) return null
+
         return (
             <div>
                 <h3>
                     {article.title}
-                    <button onClick={this.handleDelete}>Delete</button>
+                    <button onClick={this.handleDelete}>
+                        <Text>delete</Text>
+                    </button>
                 </h3>
                 <CSSTransition
                     transitionName="article"
